@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/jobs")
 public class jobController {
     private final JobService jobServices;
     private  Long nextId=1L;
@@ -15,12 +16,12 @@ public class jobController {
         this.jobServices = jobServices;
     }
 
-    @GetMapping("/jobs")
+    @GetMapping
     public ResponseEntity<List<Job>> findAll(){
         return new ResponseEntity<>(jobServices.findAllJobs(), HttpStatus.OK);
     }
 
-    @PostMapping("/jobs")
+    @PostMapping
     public ResponseEntity<String> addJob(@RequestBody Job job){
         job.setId(nextId);
         nextId++;
@@ -28,7 +29,7 @@ public class jobController {
         return new ResponseEntity<>("Job Created Successfully",HttpStatus.CREATED);
     }
 
-    @GetMapping("/jobs/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Job> getJobById(@PathVariable Long id){
         Job job=jobServices.findJobById(id);
         if(job==null){
@@ -37,7 +38,7 @@ public class jobController {
         return new ResponseEntity<Job>(job,HttpStatus.OK);
     }
 
-    @DeleteMapping("/jobs/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteJobById(@PathVariable Long id){
         boolean deleted=jobServices.deleteJobById(id);
         if(!deleted){
@@ -46,7 +47,7 @@ public class jobController {
         return new ResponseEntity<>("Job deleted Successfully",HttpStatus.OK);
     }
 
-    @PutMapping("/jobs/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Job> updateJobById(@PathVariable Long id,@RequestBody Job job){
         Job updatedJob= jobServices.updateJob(id,job);
         if(updatedJob==null){
