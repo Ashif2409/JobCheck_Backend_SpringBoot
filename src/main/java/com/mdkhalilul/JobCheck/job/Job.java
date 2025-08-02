@@ -1,9 +1,7 @@
 package com.mdkhalilul.JobCheck.job;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.mdkhalilul.JobCheck.company.Company;
+import jakarta.persistence.*;
 
 @Entity
 public class Job {
@@ -17,6 +15,9 @@ public class Job {
     private String maxSalary;
     private String location;
 
+    @ManyToOne
+    @JoinColumn(name = "company_id")
+    private Company company;
     // Default constructor required by JPA
     public Job() {
     }
@@ -27,6 +28,14 @@ public class Job {
         this.minSalary = minSalary;
         this.maxSalary = maxSalary;
         this.location = location;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     // Getters and setters
