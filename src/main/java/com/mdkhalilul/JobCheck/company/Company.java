@@ -1,6 +1,7 @@
 package com.mdkhalilul.JobCheck.company;
 
 import com.mdkhalilul.JobCheck.job.Job;
+import com.mdkhalilul.JobCheck.review.Review;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -23,9 +24,19 @@ public class Company {
         this.jobs = jobs;
     }
 
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Job> jobs;
 
+    @OneToMany(mappedBy = "company",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Review> reviews;
     public Long getId() {
         return id;
     }
